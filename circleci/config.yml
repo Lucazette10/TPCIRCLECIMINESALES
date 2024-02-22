@@ -1,0 +1,32 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: docker:stable
+
+    steps:
+      - checkout
+
+      # Construire l'image Docker
+      - run:
+          name: Build Docker Image
+          command: |
+            docker build -t mon_image_docker .
+
+      # Exécuter des tests ou autres actions que tu souhaites inclure
+      # Par exemple, si tu as des tests à exécuter, tu peux les inclure ici
+
+      # Ensuite, tu peux publier ton image Docker vers un registre Docker (en option)
+      # - run:
+      #     name: Publish Docker Image
+      #     command: |
+      #       docker login -u "$DOCKERHUB_USERNAME" -p "$DOCKERHUB_PASSWORD"
+      #       docker tag mon_image_docker "$DOCKERHUB_USERNAME/mon_image_docker"
+      #       docker push "$DOCKERHUB_USERNAME/mon_image_docker"
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build
